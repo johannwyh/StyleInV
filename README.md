@@ -1,9 +1,10 @@
 # StyleInV: A Temporal Style Modulated Inversion Network for Unconditional Video Generation
 
-This repository contains the official PyTorch implementation of the following paper which is accpeted by *ICCV 2023*:
+This repository contains the official PyTorch implementation of the following paper:
 
 > **StyleInV: A Temporal Style Modulated Inversion Network for Unconditional Video Generation**<br>
 > [Yuhan Wang](https://johann.wang/), [Liming Jiang](https://liming-jiang.com/), [Chen Change Loy](https://www.mmlab-ntu.com/person/ccloy/)<br>
+> In *ICCV 2023*.
 
 From [MMLab@NTU](https://www.mmlab-ntu.com/) affiliated with S-Lab, Nanyang Technological University
 
@@ -13,8 +14,11 @@ From [MMLab@NTU](https://www.mmlab-ntu.com/) affiliated with S-Lab, Nanyang Tech
 
 <img src="./assets/main.gif" alt="Main experiment result 256x256" width="75%" height="auto"/>
 
+**From left to right**: DeeperForensics, FaceForensics, SkyTimelapse, TaiChi
+
 <img src="./assets/init.gif" alt="Initial-frame conditioned and style transfer 256x256" width="75%" height="auto"/>
 
+**From left to right**: In-the-wild image, pSp inversion, raw animation, style transfer
 ## Updates
 - [08/2023] Accepted by ICCV 2023. The code is coming soon!
 
