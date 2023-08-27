@@ -11,25 +11,25 @@ From [MMLab@NTU](https://www.mmlab-ntu.com/) affiliated with S-Lab, Nanyang Tech
 [[Project Page](#)] |
 [[Video](https://www.youtube.com/watch?v=R_v_L-32_Vo)]
 
-<img src="./assets/main.gif" alt="Main experiment result 256x256" width="75%" height="75%"/>
+<img src="./assets/main.gif" alt="Main experiment result 256x256" width="75%" height="auto"/>
 
-<img src="./assets/init.gif" alt="Initial-frame conditioned and style transfer 256x256" width="75%" height="75%"/>
+<img src="./assets/init.gif" alt="Initial-frame conditioned and style transfer 256x256" width="75%" height="auto"/>
 
 ## Updates
 - [08/2023] Accepted by ICCV 2023. The code is coming soon!
 
 ## Citation
 
-   If you find our repo useful for your research, please consider citing our paper:
+If you find our repo useful for your research, please consider citing our paper:
 
-   ```bibtex
+```bibtex
 @InProceedings{wang2023styleinv,
     title = {{StyleInV}: A Temporal Style Modulated Inversion Network for Unconditional Video Generation},
     author = {Wang, Yuhan and Jiang, Liming and Loy, Chen Change},
     booktitle = {ICCV},
     year = {2023}
 }   
-   ```
+```
 
 ## Acknowledgement
 
