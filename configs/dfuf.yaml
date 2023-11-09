@@ -1,0 +1,124 @@
+# data
+dataset:
+  data: data/MCG_Dataset/DFUF_256
+  fps: 30
+  size: 256
+  nframes: 128
+  stride: 1
+  mirror: true
+  c_dim: 0
+  flex_sampling: false
+
+# metric
+metrics: ["fvd2048_16f", "fvd2048_128f", "fvd2048_128f_subsample8f", "fid50k"]
+
+# training
+lrSI: 0.0001
+lrD: 0.002
+mutual_info: false
+loss_kwargs:
+  first_frame_recon: true
+  first_frame_in_D: true 
+  first_frame_use_gen: false
+  lambdas:
+    r1_gamma: 1.0
+    lambda_adv: 1
+    lambda_recon: 10
+    lambda_mutual: 0
+    lambda_w_reg: 0.05 # 0.05 preferred if set
+
+# ada
+aug: ada # [noaug, ada]
+target: 0.6
+augpipe: bgc
+
+# model
+g_sampling:
+  type: random
+  num_frames_per_video: 4
+  num_sample: 3
+  add_0: true
+  max_num_frames: ${dataset.nframes}
+  use_fractional_t: True
+  total_dists: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
+  max_dist: 32
+
+real_sampling:
+  type: random
+  num_frames_per_video: 4
+  num_sample: 3
+  add_0: true
+  max_num_frames: ${dataset.nframes}
+  use_fractional_t: False
+  total_dists: ${g_sampling.total_dists}
+  max_dist: ${g_sampling.max_dist}
+  
+checkpoint: pretrained_models/styleinv/dfuf_256/psp-dfuf256-random_noise-fid13.23.pkl
+noise_mode: const
+
+styleinv:
+  input_residual: true
+  # mapping
+  mapping_opts:
+    c_dim: ${dataset.c_dim}
+    content_dim: 512
+    w_dim: 512
+    layers_after_fuse: 2
+    concat_content: true
+    lr_multiplier: 0.01
+    sampling: ${g_sampling}
+    motion:
+      type: acyclic_pe
+      z_dim: 512
+      v_dim: 512
+      # Distance between motion codes
+      motion_z_distance: 16
+      # Parameters of the 2-layer conv1d-based motion generation network
+      gen_strategy: conv
+      kernel_size: 11
+      # Sample time positions in non-integer locations
+      use_fractional_t: ${g_sampling.use_fractional_t}
+      # Use our aligned positional embeddings for time
+      fourier: true
+      # acyclic positional encoding setting
+      time_enc:
+        cond_type: concat_const
+        dim: 256 # pe_dim // 2, as [sin, cos]
+        min_period_len: ${styleinv.mapping_opts.motion.motion_z_distance}
+        max_period_len: ${dataset.nframes}
+
+        # This randomly shifts different dimensions of time positional
+        # embeddings, making them more disentangled.
+        phase_dropout_std: 1.0
+
+  # encoder
+  encoder_opts:
+    adain_mode: block
+    normalize_adain: true
+    lr_multiplier: 1
+    use_modulation: false
+    pca:
+      use_pca: false
+      pca_path: pretrained_models/pca_stats/sky_256_big
+      n_pca: 384
+      pca_lambda: 0.2
+      
+  # set true for ablation only, otherwise always false
+  skip_encoder: false
+
+discriminator:
+  type: stylegan-v
+  cfg:
+    sampling: ${real_sampling}
+    concat_res: 16
+    num_frames_div_factor: 2
+    dummy_c: false
+    pe:
+      use_const_embed: true
+      t_is_frame_idx: false
+
+# visualiza
+visualize_args:
+  viz_len: 128
+  fps: 30
+  viz_len_batch: 128

@@ -1,0 +1,19 @@
+# Folders
+__pycache__
+pretrained_models
+
+# Files
+*.weights
+*.t7
+*.mp4
+*.avi
+*.so
+*.txt
+*.pth
+*.pkl
+*.ckpt
+*.bin
+*.tar
+
+# Command line scripts
+*.sh
