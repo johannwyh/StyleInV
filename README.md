@@ -48,7 +48,7 @@ train_styleinv.py
 First download `stylegan2-celebvhq256-fid5.00.pkl`
 
 ```bash
-python -u train.py \
+python -u train_stylegan2.py \
 --outdir=experiments/stylegan2/transfer/celebvhq-arcane \
 --gpus=4 \
 --data=[your fine-tune dataset directory] \
