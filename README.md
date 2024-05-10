@@ -45,8 +45,23 @@ train_styleinv.py
 
 ### 4. Finetuning-based style transfer
 
+First download `stylegan2-celebvhq256-fid5.00.pkl`
+
 ```bash
-train_stylegan2.py
+python -u train.py \
+--outdir=experiments/stylegan2/transfer/celebvhq-arcane \
+--gpus=4 \
+--data=[your fine-tune dataset directory] \
+--mirror=1 \
+--cfg=paper256 \
+--aug=ada \
+--snap=20 \
+--resume=pretrained_models/psp/celebv_hq_256/stylegan2-celebvhq256-fid5.00.pkl \
+--transfer=True \
+--no-metric=True \
+--finetune-g-res=64 \
+--perceptual-weight=30 \
+--identity-weight=1
 ```
 
 ### Inference
