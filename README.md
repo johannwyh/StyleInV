@@ -45,7 +45,10 @@ train_styleinv.py
 
 ### 4. Finetuning-based style transfer
 
-First download `stylegan2-celebvhq256-fid5.00.pkl`
+1. Download `stylegan2-celebvhq256-fid5.00.pkl` and save it to `pretrained_models/psp/celebv_hq_256/stylegan2-celebvhq256-fid5.00.pkl`
+2. For the auxiliary models, download `model_ir_se50.pth` and save it to `pretrained_models/psp/model_ir_se50.pth`. The weight for perceptual loss can be automatically downloaded.
+3. Prepare a fine-tune dataset, where each image should be cropped according to [this](https://github.com/chi0tzp/FFHQFaceAlignment) or [this](https://github.com/NVlabs/ffhq-dataset)
+4. Start finetuning
 
 ```bash
 python -u train_stylegan2.py \
